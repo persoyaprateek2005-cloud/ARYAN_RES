@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ARYAN RESTAURANT — Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#6B1E2E;
+    --maroon-dark:#4E1521;
+    --gold:#C99A3D;
+    --gold-light:#E4C77A;
+    --indigo:#1F3B4D;
+    --ivory:#FAF3E6;
+    --card:#FFFBF2;
+    --text:#2B1B12;
+    --muted:#8A7763;
+    --whatsapp:#25D366;
+    --whatsapp-dark:#1DA851;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Hind', sans-serif;
+    background:var(--ivory);
+    color:var(--text);
+    padding-bottom:110px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .jali{
+    height:14px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M14 1 L27 7 L14 13 L1 7 Z' fill='none' stroke='%23C99A3D' stroke-width='1.4'/%3E%3Ccircle cx='14' cy='7' r='1.6' fill='%23C99A3D'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-size:28px 14px;
+  }
+  header{
+    background:linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color:var(--ivory);
+    text-align:center;
+    padding:34px 20px 22px;
+    position:relative;
+  }
+  header .eyebrow{
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    margin-bottom:6px;
+  }
+  header h1{
+    font-family:'Yatra One', cursive;
+    font-weight:400;
+    font-size:clamp(30px,8vw,42px);
+    letter-spacing:1px;
+  }
+  header .tagline{
+    font-size:13px;
+    color:var(--gold-light);
+    margin-top:6px;
+    font-style:italic;
+  }
+  .table-badge{
+    display:inline-block;
+    margin-top:16px;
+    background:var(--gold);
+    color:var(--maroon-dark);
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:1px;
+    padding:7px 22px;
+    border-radius:3px;
+  }
+  .table-badge.empty{
+    background:transparent;
+    border:1px solid var(--gold-light);
+    color:var(--gold-light);
+    font-weight:600;
+  }
+  main{
+    max-width:560px;
+    margin:0 auto;
+    padding:24px 16px 8px;
+  }
+  .category{
+    margin-bottom:30px;
+  }
+  .cat-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+  }
+  .cat-head .num{
+    font-family:'Yatra One', cursive;
+    color:var(--gold);
+    font-size:22px;
+  }
+  .cat-head h2{
+    font-size:19px;
+    letter-spacing:0.5px;
+    color:var(--maroon);
+  }
+  .cat-divider{margin:10px 0 16px;}
+  .item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    background:var(--card);
+    border:1px solid #EFE3CC;
+    border-radius:10px;
+    padding:13px 14px;
+    margin-bottom:10px;
+  }
+  .item-info{flex:1; min-width:0;}
+  .item-info .name{
+    font-weight:600;
+    font-size:15.5px;
+    color:var(--text);
+  }
+  .item-info .desc{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:2px;
+    line-height:1.35;
+  }
+  .item-info .price{
+    font-size:13.5px;
+    color:var(--maroon);
+    font-weight:700;
+    margin-top:5px;
+  }
+  .stepper{
+    display:flex;
+    align-items:center;
+    gap:0;
+    flex-shrink:0;
+  }
+  .stepper button{
+    width:30px; height:30px;
+    border:none;
+    background:var(--maroon);
+    color:var(--ivory);
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stepper button:first-child{border-radius:6px 0 0 6px;}
+  .stepper button:last-child{border-radius:0 6px 6px 0;}
+  .stepper button:disabled{background:#D9CDB8; cursor:default;}
+  .stepper .qty{
+    width:30px; height:30px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--ivory);
+    border-top:1px solid var(--maroon);
+    border-bottom:1px solid var(--maroon);
+    font-weight:700;
+    font-size:14px;
+  }
+  .add-btn{
+    width:64px; height:30px;
+    border:1.5px solid var(--maroon);
+    background:transparent;
+    color:var(--maroon);
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:0.5px;
+    border-radius:6px;
+    cursor:pointer;
+  }
+
+  /* Cart bar */
+  #cartBar{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    background:var(--maroon-dark);
+    color:var(--ivory);
+    padding:13px 18px;
+    display:none;
+    align-items:center;
+    justify-content:space-between;
+    max-width:560px;
+    margin:0 auto;
+    border-radius:14px 14px 0 0;
+    box-shadow:0 -4px 18px rgba(0,0,0,0.25);
+    cursor:pointer;
+  }
+  #cartBar .left{display:flex; flex-direction:column;}
+  #cartBar .count{font-size:11px; color:var(--gold-light); letter-spacing:0.5px;}
+  #cartBar .total{font-size:17px; font-weight:700;}
+  #cartBar .cta{
+    background:var(--gold);
+    color:var(--maroon-dark);
+    font-weight:700;
+    font-size:13.5px;
+    padding:10px 18px;
+    border-radius:8px;
+  }
+
+  /* Drawer */
+  #overlay{
+    position:fixed; inset:0;
+    background:rgba(0,0,0,0.45);
+    display:none;
+    z-index:10;
+  }
+  #drawer{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    max-width:560px;
+    margin:0 auto;
+    background:var(--ivory);
+    border-radius:18px 18px 0 0;
+    z-index:11;
+    max-height:82vh;
+    display:flex;
+    flex-direction:column;
+    transform:translateY(100%);
+    transition:transform 0.28s ease;
+  }
+  #drawer.open{transform:translateY(0);}
+  .drawer-head{
+    padding:18px 20px 10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #EFE3CC;
+  }
+  .drawer-head h3{font-size:18px; color:var(--maroon);}
+  .drawer-head .close{
+    font-size:22px; color:var(--muted); cursor:pointer; line-height:1;
+  }
+  #drawerItems{
+    overflow-y:auto;
+    padding:10px 20px;
+    flex:1;
+  }
+  .drawer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid #EFE3CC;
+  }
+  .drawer-row .dn{font-size:14.5px; font-weight:600;}
+  .drawer-row .dp{font-size:12px; color:var(--muted);}
+  .drawer-foot{
+    padding:16px 20px 22px;
+    border-top:1px solid #EFE3CC;
+  }
+  .table-line{
+    display:flex; justify-content:space-between;
+    font-size:13px; color:var(--muted); margin-bottom:8px;
+  }
+  .total-line{
+    display:flex; justify-content:space-between;
+    font-size:18px; font-weight:700; color:var(--maroon);
+    margin-bottom:14px;
+  }
+  #waBtn{
+    width:100%;
+    background:var(--whatsapp);
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    cursor:pointer;
+  }
+  #waBtn:active{background:var(--whatsapp-dark);}
+  .wa-note{
+    font-size:11.5px;
+    color:var(--muted);
+    text-align:center;
+    margin-top:10px;
+    line-height:1.4;
+  }
+  .empty-cart{
+    text-align:center;
+    padding:30px 10px;
+    color:var(--muted);
+    font-size:13.5px;
+  }
+  footer{
+    text-align:center;
+    padding:18px;
+    font-size:11px;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Welcome to</div>
+  <h1>ARYAN RESTAURANT</h1>
+  <div class="tagline">Rajasthani &amp; North Indian Kitchen — Jaipur</div>
+  <div id="tableBadge" class="table-badge empty">Scan table QR to begin</div>
+</header>
+<div class="jali"></div>
+
+<main id="menuRoot"></main>
+
+<div id="cartBar" onclick="openDrawer()">
+  <div class="left">
+    <span class="count" id="cartCount">0 items</span>
+    <span class="total" id="cartTotal">₹0</span>
+  </div>
+  <div class="cta">Review Order</div>
+</div>
+
+<div id="overlay" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <div class="drawer-head">
+    <h3>Your Order</h3>
+    <span class="close" onclick="closeDrawer()">&times;</span>
+  </div>
+  <div id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="table-line"><span>Table</span><span id="drawerTable">—</span></div>
+    <div class="total-line"><span>Total</span><span id="drawerTotal">₹0</span></div>
+    <button id="waBtn" onclick="sendToWhatsApp()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.6c1.7.9 3.6 1.5 5.7 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0zm0 22c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-3.9 1 1-3.8-.2-.4C2.5 15.6 2 13.8 2 12 2 6.5 6.5 2 12 2s10 4.5 10 10-4.5 10-10 10zm5.6-7.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.4.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+      Send Order on WhatsApp
+    </button>
+    <div class="wa-note">Opens WhatsApp with your order pre-filled — just tap Send to confirm with the restaurant.</div>
+  </div>
+</div>
+
+<footer>ARYAN RESTAURANT · Digital Menu</footer>
+
+<script>
+const WHATSAPP_NUMBER = "919799083657"; // +91 97990 83657
+
+const menu = [
+  {cat:"Starters", items:[
+    {n:"Paneer Tikka", d:"Char-grilled cottage cheese, smoked spices", p:240},
+    {n:"Veg Spring Roll", d:"Crisp rolls with julienned vegetables", p:180},
+    {n:"Chicken Tikka", d:"Marinated chicken, tandoor-roasted", p:280},
+    {n:"Tandoori Chicken (Half)", d:"Classic charcoal-tandoor preparation", p:320},
+  ]},
+  {cat:"Main Course", items:[
+    {n:"Laal Maas", d:"Rajasthani-style mutton in fiery red chilli gravy", p:380},
+    {n:"Gatte ki Sabzi", d:"Besan dumplings in spiced yogurt curry", p:210},
+    {n:"Dal Makhani", d:"Black lentils, slow-cooked with butter & cream", p:220},
+    {n:"Paneer Butter Masala", d:"Cottage cheese in rich tomato gravy", p:260},
+    {n:"Butter Chicken", d:"Tandoori chicken in creamy tomato sauce", p:320},
+  ]},
+  {cat:"Breads", items:[
+    {n:"Tandoori Roti", d:"Whole wheat, clay-oven baked", p:30},
+    {n:"Butter Naan", d:"Soft leavened bread, brushed with butter", p:60},
+    {n:"Lachha Paratha", d:"Multi-layered, flaky wheat bread", p:70},
+  ]},
+  {cat:"Rice & Biryani", items:[
+    {n:"Jeera Rice", d:"Basmati rice tempered with cumin", p:150},
+    {n:"Veg Biryani", d:"Fragrant rice with seasonal vegetables", p:220},
+    {n:"Chicken Biryani", d:"Slow-cooked dum-style biryani", p:280},
+  ]},
+  {cat:"Beverages", items:[
+    {n:"Masala Chaas", d:"Spiced buttermilk", p:70},
+    {n:"Sweet Lassi", d:"Traditional yogurt-based drink", p:90},
+    {n:"Soft Drink", d:"Chilled, 300ml", p:60},
+  ]},
+  {cat:"Desserts", items:[
+    {n:"Gulab Jamun (2 pcs)", d:"Soft milk dumplings in saffron syrup", p:90},
+    {n:"Malai Kulfi", d:"Traditional Indian ice cream", p:110},
+  ]},
+];
+
+let cart = {};
+let tableName = "";
+
+function idFor(cat, name){ return (cat+"-"+name).replace(/\s+/g,"_"); }
+
+function renderMenu(){
+  const root = document.getElementById("menuRoot");
+  root.innerHTML = "";
+  menu.forEach((section, si) => {
+    const catDiv = document.createElement("div");
+    catDiv.className = "category";
+    catDiv.innerHTML = `
+      <div class="cat-head"><span class="num">${String(si+1).padStart(2,'0')}</span><h2>${section.cat}</h2></div>
+      <div class="jali cat-divider"></div>
+    `;
+    section.items.forEach(it => {
+      const id = idFor(section.cat, it.n);
+      const row = document.createElement("div");
+      row.className = "item";
+      row.innerHTML = `
+        <div class="item-info">
+          <div class="name">${it.n}</div>
+          <div class="desc">${it.d}</div>
+          <div class="price">₹${it.p}</div>
+        </div>
+        <div class="qty-control" id="ctrl-${id}"></div>
+      `;
+      catDiv.appendChild(row);
+      renderControl(id, it);
+    });
+    root.appendChild(catDiv);
+  });
+}
+
+function renderControl(id, it){
+  const el = document.getElementById(`ctrl-${id}`);
+  const qty = cart[id]?.qty || 0;
+  if(qty === 0){
+    el.innerHTML = `<button class="add-btn" onclick="changeQty('${id}', '${it.n.replace(/'/g,"\\'")}', ${it.p}, 1)">ADD +</button>`;
+  } else {
+    el.innerHTML = `
+      <div class="stepper">
+        <button onclick="changeQty('${id}', '${it.n.replace(/'/g,"\\'")}', ${it.p}, -1)">−</button>
+        <div class="qty">${qty}</div>
+        <button onclick="changeQty('${id}', '${it.n.replace(/'/g,"\\'")}', ${it.p}, 1)">+</button>
+      </div>`;
+  }
+}
+
+function changeQty(id, name, price, delta){
+  if(!cart[id]) cart[id] = {name, price, qty:0};
+  cart[id].qty += delta;
+  if(cart[id].qty <= 0) delete cart[id];
+  renderControl(id, {n:name, p:price});
+  updateCartBar();
+}
+
+function cartTotals(){
+  let count=0, total=0;
+  Object.values(cart).forEach(c=>{ count += c.qty; total += c.qty*c.price; });
+  return {count, total};
+}
+
+function updateCartBar(){
+  const {count, total} = cartTotals();
+  const bar = document.getElementById("cartBar");
+  if(count > 0){
+    bar.style.display = "flex";
+    document.getElementById("cartCount").textContent = `${count} item${count>1?'s':''}`;
+    document.getElementById("cartTotal").textContent = `₹${total}`;
+  } else {
+    bar.style.display = "none";
+  }
+}
+
+function renderDrawer(){
+  const wrap = document.getElementById("drawerItems");
+  const {count, total} = cartTotals();
+  if(count === 0){
+    wrap.innerHTML = `<div class="empty-cart">Your cart is empty. Add a few dishes to get started.</div>`;
+  } else {
+    wrap.innerHTML = Object.values(cart).map(c => `
+      <div class="drawer-row">
+        <div>
+          <div class="dn">${c.name}</div>
+          <div class="dp">₹${c.price} × ${c.qty}</div>
+        </div>
+        <div class="dn">₹${c.price*c.qty}</div>
+      </div>
+    `).join("");
+  }
+  document.getElementById("drawerTotal").textContent = `₹${total}`;
+  document.getElementById("drawerTable").textContent = tableName || "Not specified";
+}
+
+function openDrawer(){
+  renderDrawer();
+  document.getElementById("overlay").style.display = "block";
+  document.getElementById("drawer").classList.add("open");
+}
+function closeDrawer(){
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("drawer").classList.remove("open");
+}
+
+function sendToWhatsApp(){
+  const {count, total} = cartTotals();
+  if(count === 0) return;
+  let msg = `🍽️ *New Order – ARYAN RESTAURANT*\n`;
+  msg += `Table: *${tableName || "Not specified"}*\n\n`;
+  Object.values(cart).forEach(c=>{
+    msg += `${c.qty}x ${c.name} – ₹${c.price*c.qty}\n`;
+  });
+  msg += `\n*Total: ₹${total}*\n\n_Sent via digital menu_`;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank");
+}
+
+function readTable(){
+  const params = new URLSearchParams(window.location.search);
+  const t = params.get("table");
+  const badge = document.getElementById("tableBadge");
+  if(t){
+    tableName = t.toUpperCase();
+    badge.textContent = `Table ${tableName}`;
+    badge.classList.remove("empty");
+  }
+}
+
+readTable();
+renderMenu();
+updateCartBar();
+</script>
+</body>
+</html>
