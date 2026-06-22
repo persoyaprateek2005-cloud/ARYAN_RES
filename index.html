@@ -415,7 +415,7 @@
 <script>
 const SUPABASE_URL = "https://vtvetjnvpxqllidvyxz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_rUhWKocxRgZGDtne_k2iSQ_NwQU8AQk";
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
 
 // Category icon map (same keys as DB category names)
 const CAT_ICON_MAP = {
@@ -707,7 +707,7 @@ async function loadMenu() {
     .single();
 
   if(restErr || !restData) {
-    root.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">Menu unavailable. Please try again.</div>';
+    root.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">Error: ' + (restErr ? restErr.message + ' (' + restErr.code + ')' : 'no data returned') + '</div>';
     return;
   }
   restaurantId = restData.id;
